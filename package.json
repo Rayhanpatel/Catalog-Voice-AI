@@ -1,0 +1,17 @@
+{
+  "name": "wine-voice-ai-workspace",
+  "private": true,
+  "scripts": {
+    "dev:boutique": "npm --workspace wine-boutique-world run dev",
+    "dev:explorer": "npm --workspace wine-voice-explorer run dev",
+    "proxy:server": "node ./packages/wine-ai-core/server/app.mjs",
+    "build:all": "npm --workspaces --if-present run build",
+    "test:all": "npm --workspace wine-boutique-world run test && npm --workspace wine-boutique-world run test:e2e",
+    "check:all": "npm --workspace wine-boutique-world run lint && npm --workspace wine-boutique-world run test && npm --workspace wine-boutique-world run build && npm --workspace wine-voice-explorer run build"
+  },
+  "workspaces": [
+    "packages/*",
+    "wine-boutique-world",
+    "wine-voice-explorer"
+  ]
+}

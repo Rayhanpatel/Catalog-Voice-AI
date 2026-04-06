@@ -1,0 +1,25 @@
+node_modules/
+dist/
+coverage/
+.DS_Store
+*.local
+.claude/
+.codex-vite-scaffold/
+
+# Private workspace notes and local-only material
+internal_doc/
+Internal_docs/
+**/internal_doc/
+**/Internal_docs/
+Midnight in Garda.mp3
+
+# Local environment files
+.env
+.env.local
+**/.env
+**/.env.local
+
+# Build and dependency output
+**/node_modules/
+**/dist/
+**/coverage/

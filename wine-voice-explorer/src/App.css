@@ -1,0 +1,753 @@
+/* ── Reset & Variables ─────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0a0a0a;
+  --bg-elevated: #141414;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222222;
+  --gold: #c9a96e;
+  --gold-dim: #a08650;
+  --wine-red: #8b2332;
+  --wine-red-light: #b5394c;
+  --text: #f0ebe4;
+  --text-muted: #8b8680;
+  --text-dim: #5a5550;
+  --border: #2a2520;
+  --shadow: rgba(0, 0, 0, 0.4);
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── App Layout ───────────────────────────────────────────────────────── */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+}
+
+.header-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-key-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.header-key-btn:hover {
+  color: var(--text-muted);
+  border-color: var(--text-muted);
+}
+
+/* ── Chat Area ────────────────────────────────────────────────────────── */
+
+.chat-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  scroll-behavior: smooth;
+}
+
+.chat-area::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-area::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+/* ── Empty State ──────────────────────────────────────────────────────── */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+
+.empty-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.empty-sub {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.example-queries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 600px;
+}
+
+.example-query {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.example-query:hover {
+  background: var(--bg-card-hover);
+  color: var(--gold);
+  border-color: var(--gold-dim);
+}
+
+/* ── Messages ─────────────────────────────────────────────────────────── */
+
+.message {
+  display: flex;
+  flex-direction: column;
+  animation: fadeInUp 0.3s ease;
+}
+
+.message-user {
+  align-items: flex-end;
+}
+
+.message-assistant {
+  align-items: flex-start;
+}
+
+.bubble {
+  max-width: 80%;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.bubble-user {
+  background: var(--wine-red);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.bubble-assistant {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+}
+
+.bubble-error {
+  border-color: var(--wine-red);
+  color: var(--wine-red-light);
+}
+
+.bubble-interim {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.bubble-thinking {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+}
+
+/* ── Wine Cards Row ───────────────────────────────────────────────────── */
+
+.wine-cards-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 12px 0 4px 0;
+  max-width: 100%;
+  scroll-snap-type: x mandatory;
+}
+
+.wine-cards-row::-webkit-scrollbar {
+  height: 4px;
+}
+.wine-cards-row::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.wine-card {
+  flex: 0 0 220px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  scroll-snap-align: start;
+  transition: border-color 0.2s;
+}
+
+.wine-card:hover {
+  border-color: var(--gold-dim);
+}
+
+.wine-card-img-wrap {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+  overflow: hidden;
+}
+
+.wine-card-img {
+  max-height: 130px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.wine-card-img-placeholder {
+  font-size: 3rem;
+  opacity: 0.35;
+}
+
+.wine-card-body {
+  padding: 12px;
+}
+
+.wine-card-name {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  margin-bottom: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wine-card-producer {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.wine-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.wine-tag {
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.wine-tag-red { background: #6b2030; color: #f0d0d5; }
+.wine-tag-white { background: #8a7d3a; color: #f5f0d0; }
+.wine-tag-rose { background: #8b4f5a; color: #f5dde0; }
+.wine-tag-sparkling { background: #5a6840; color: #e0ecd0; }
+.wine-tag-dessert { background: #7a5a2a; color: #f5e8d0; }
+.wine-tag-fortified { background: #5a4a3a; color: #e8ddd0; }
+
+.wine-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.wine-price {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.wine-score {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.wine-score small {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.wine-card-note {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  font-style: italic;
+  line-height: 1.4;
+  margin-top: 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.wine-note-source {
+  font-style: normal;
+  color: var(--text-muted);
+}
+
+/* ── Input Bar ────────────────────────────────────────────────────────── */
+
+.input-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-elevated);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.text-form {
+  display: flex;
+  flex: 1;
+  gap: 8px;
+  min-width: 0;
+}
+
+.text-input {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 12px 18px;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.text-input::placeholder {
+  color: var(--text-dim);
+}
+
+.text-input:focus {
+  border-color: var(--gold-dim);
+}
+
+.send-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--gold);
+  color: var(--bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.send-btn:hover:not(:disabled) {
+  background: var(--gold-dim);
+}
+
+.send-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ── Voice Button ─────────────────────────────────────────────────────── */
+
+.voice-btn {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.voice-btn:hover:not(:disabled) {
+  background: rgba(201, 169, 110, 0.1);
+}
+
+.voice-btn-active {
+  background: var(--wine-red);
+  border-color: var(--wine-red-light);
+  color: #fff;
+}
+
+.voice-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.voice-rings {
+  position: absolute;
+  inset: -8px;
+  pointer-events: none;
+}
+
+.voice-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--wine-red-light);
+  animation: ringPulse 1.5s ease infinite;
+}
+
+.voice-ring-2 { animation-delay: 0.3s; }
+.voice-ring-3 { animation-delay: 0.6s; }
+
+/* ── Voice mode status bar ────────────────────────────────────────────── */
+
+.voice-mode-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.voice-mode-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  animation: voice-dot-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes voice-dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ── Stop speaking ────────────────────────────────────────────────────── */
+
+.stop-speaking-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.stop-speaking-btn:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.voice-unsupported {
+  font-size: 0.7rem;
+  color: var(--wine-red-light);
+  width: 100%;
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* ── API Key Screen ───────────────────────────────────────────────────── */
+
+.key-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 40px 20px;
+}
+
+.key-screen-inner {
+  text-align: center;
+  max-width: 440px;
+  width: 100%;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+  margin-bottom: 12px;
+}
+
+.brand-sub {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+.key-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.key-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: left;
+}
+
+.key-input {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.key-input:focus {
+  border-color: var(--gold-dim);
+}
+
+.key-submit {
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 4px;
+}
+
+.key-submit:hover:not(:disabled) {
+  background: var(--gold-dim);
+}
+
+.key-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.key-note {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+.loading-text {
+  animation: pulse 1.5s ease infinite;
+}
+
+/* ── Dot Pulse (thinking indicator — 3 dots) ──────────────────────────── */
+
+.dot-pulse {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+}
+
+/* dot 1 */
+.dot-pulse::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: dotBounce 1.4s ease infinite;
+}
+
+/* dot 2 (middle) */
+.dot-pulse .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: dotBounce 1.4s ease 0.2s infinite;
+}
+
+/* dot 3 */
+.dot-pulse::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: dotBounce 1.4s ease 0.4s infinite;
+}
+
+/* ── Animations ───────────────────────────────────────────────────────── */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes dotBounce {
+  0%, 80%, 100% { opacity: 0.3; }
+  40% { opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Streaming Cursor ────────────────────────────────────────────────── */
+
+.bubble-streaming {
+  position: relative;
+}
+
+.streaming-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--gold);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.8s ease infinite;
+}
+
+/* ── Mobile ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .header { padding: 12px 16px; }
+  .chat-area { padding: 16px; }
+  .input-bar { padding: 12px 16px; }
+  .brand { font-size: 2rem; }
+  .empty-title { font-size: 1.5rem; }
+  .bubble { max-width: 90%; }
+  .wine-card { flex: 0 0 180px; }
+}

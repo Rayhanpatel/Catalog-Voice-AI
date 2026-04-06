@@ -1,0 +1,11 @@
+{
+  "name": "@wine-voice-ai/wine-ai-core",
+  "description": "Shared catalog, retrieval, LLM streaming, TTS, speech input, and proxy server for the Wine Voice AI workspace.",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {}
+}
