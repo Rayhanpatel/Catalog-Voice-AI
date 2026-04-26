@@ -1,6 +1,6 @@
-# Wine Voice Explorer
+# Voice Explorer
 
-Standalone sandbox for the shared Wine Voice AI core. This app keeps a simpler full-screen chat interface for experimenting with the same grounded wine advisor that powers the flagship boutique experience.
+Standalone sandbox for the shared Catalog Voice AI core. This app keeps a simpler full-screen chat interface for experimenting with the same grounded product advisor that powers the flagship boutique experience.
 
 ## Responsibilities
 
@@ -14,12 +14,12 @@ The flagship integrated experience lives in `wine-boutique-world`. Shared logic 
 
 ## Features
 
-- grounded answers from the provided wine catalog
+- grounded answers from the provided product catalog
 - voice or text input
 - streamed answers
 - premium cloud TTS when available
 - conversation carry-forward for follow-up questions
-- recommendation cards for referenced bottles
+- recommendation cards for referenced products
 
 ## Local Development
 
