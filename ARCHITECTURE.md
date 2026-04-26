@@ -1,4 +1,4 @@
-# Catalog Voice AI Architecture
+# Retail Catalog Voice AI Architecture
 
 ## Workspace roles
 
