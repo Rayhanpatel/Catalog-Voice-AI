@@ -1,6 +1,6 @@
 # Boutique World
 
-Flagship product surface for the Catalog Voice AI workspace. This app wraps the grounded product advisor in a compact 3D boutique with an NPC concierge, in-world interaction prompt, ambience, and an integrated consultation overlay.
+Flagship product surface for the Retail Catalog Voice AI workspace. This app wraps the grounded product advisor in a compact 3D boutique with an NPC concierge, in-world interaction prompt, ambience, and an integrated consultation overlay.
 
 ## Responsibilities
 
